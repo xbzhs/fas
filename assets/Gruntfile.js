@@ -1,8 +1,9 @@
 module.exports = function(grunt) {
     var cheerio = require('cheerio')
     var fs = require('fs')
+    var path = require('path')
     var cfg = JSON.parse(fs.readFileSync('./package.json'));
-    var name = cfg.name;
+    var name = path.basename(path.resolve(__dirname, '../../'));
     var version = cfg.branch;
     var dest = {
         demo: '../../../../codePub/' + name + '/branches/' + version + '/demo',
@@ -137,7 +138,7 @@ module.exports = function(grunt) {
             },
             htmls: {
                 expand: true,
-                src: ['./*.html', '!./_*.html'],
+                src: ['./*.html','./_**'],
                 dest: dest.demo,
                 options: {
                     process: function(content, filepath) {
@@ -204,20 +205,7 @@ module.exports = function(grunt) {
                                     })
                             }
 
-                            /**
-                             * html 模块加载，匹配以_开头的html文件。并合到所引用的dom中。
-                             */
-                            var reg = /<\!--#include\s*virtual="(_.*)"-->/g;
-                            var matched = $.html().match(reg);
-                            var dom = $.html();
-                            // 注释掉合并模块
-                            // if ( !! matched && Object.prototype.toString.call(matched) != '[object Null]') {
-                            //     matched.forEach(function(val) {
-                            //         var filename = val.replace(reg, '$1');
-                            //         dom = dom.replace(val, fs.readFileSync(filename));
-                            //     })
-                            // }
-                            return dom;
+                            return $.html();
                         } catch (e) {
                             console.log(e.message)
                         }

@@ -1,6 +1,6 @@
 {
     "name": "fas",
-    "version": "0.0.24",
+    "version": "0.0.26",
     "description": "前端自动化系统",
     "main": "index.js",
     "bin": {
@@ -10,7 +10,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": {
-        "name": "网购组"
+        "name": "网购前端开发部"
     },
     "repository": {
         "type": "git",
@@ -33,5 +33,5 @@
     "devDependencies": {},
     "license": "MIT",
     "readme": "ERROR: No README data found!",
-    "_id": "fas@0.0.24"
+    "_id": "fas@0.0.26"
 }
