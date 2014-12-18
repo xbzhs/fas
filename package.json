@@ -1,37 +1,37 @@
 {
-    "name": "fas",
-    "version": "0.0.26",
-    "description": "前端自动化系统",
-    "main": "index.js",
-    "bin": {
-        "fas": "./bin/fas.js"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": {
-        "name": "网购前端开发部"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:rubyless/fas.git"
-    },
-    "keywords": [
-        "前端自动化系统"
-    ],
-    "bugs": {
-        "url": "https://github.com/rubyless/fas/issues"
-    },
-    "homepage": "https://github.com/rubyless/fas",
-    "dependencies": {
-        "inquirer": "~0.4.1",
-        "ncp": "~0.5.0",
-        "commander": "~2.2.0",
-        "rimraf": "~2.2.6"
-    },
-    "_from": "fas@",
-    "devDependencies": {},
-    "license": "MIT",
-    "readme": "ERROR: No README data found!",
-    "_id": "fas@0.0.26"
+  "name": "fas",
+  "version": "0.2.12",
+  "description": "前端自动化系统",
+  "main": "index.js",
+  "bin": {
+    "fas": "./bin/fas.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "网购前端开发部"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rubyless/fas.git"
+  },
+  "keywords": [
+    "前端自动化系统"
+  ],
+  "bugs": {
+    "url": "https://github.com/rubyless/fas/issues"
+  },
+  "homepage": "https://github.com/rubyless/fas",
+  "dependencies": {
+    "inquirer": "~0.4.1",
+    "ncp": "~0.5.0",
+    "commander": "~2.2.0",
+    "rimraf": "~2.2.6"
+  },
+  "_from": "fas@",
+  "devDependencies": {},
+  "license": "MIT",
+  "readme": "ERROR: No README data found!",
+  "_id": "fas@0.2.12"
 }

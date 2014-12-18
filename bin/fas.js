@@ -13,17 +13,17 @@ program
     .usage('[command]')
 
 program
-    .command('create')
+    .command('init')
     .description('初始化项目目录')
     .action(function() {
-       lib.create()
+       lib.init()
     });
 
 program
-    .command('branch')
+    .command('create')
     .description('初始化版本目录')
     .action(function() {
-       lib.branch()
+       lib.create()
     })
 
 program
