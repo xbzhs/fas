@@ -9,31 +9,54 @@ var gulp = require('gulp'),
     useref = require('gulp-useref'),
     connectSSI = require('fed-ssi'),
     sourcemaps = require('gulp-sourcemaps'),
+    gutil = require('gulp-util'),
     cssUrlVersion = require('gulp-css-urlversion'),
     inlineImage = require('gulp-inline-imgurl'),
+    autoprefixer = require('gulp-autoprefixer'),
+    imagemin = require('gulp-imagemin'),
+    mock = require('fed-mock'),
     connect = require('gulp-connect');
 
 var build = './build/assets'
+var env = gutil.env.type
 
-gulp.task('connect', function() {
+gulp.task('connect',function() {
     connect.server({
-        root: '/codeDev',
+        root: '/newCode',
         port: 3000,
         livereload: true,
-        middleware: function() {
-            return [connectSSI({
+        middleware: function(connect, opt) {
+            var middlewares = [];
+            middlewares.push(connectSSI({
                 ext: '.html',
-                baseDir: '/codeDev',
+                baseDir: '/newCode',
                 payload: {
                     ENV_TYPE: 'dev',
                     https: false,
-                    channel:'',
-                    page:''
+                    channel: '',
+                    page: 'package.json'
                 }
-            })];
+            }))
+
+            return middlewares;
         }
     });
 });
+
+gulp.task('mock',function(){
+    connect.server({
+        root: '/newCode',
+        port: 3001,
+        livereload: true,
+        middleware:function(connect,opt){
+            var middlewares = [];
+            middlewares.push(mock(
+                '', ''
+            ))
+            return middlewares
+        }
+    })
+})
 
 gulp.task('livereload', function() {
     gulp.src(build)
@@ -47,20 +70,34 @@ gulp.task('clean', function(cb) {
         .pipe(clean())
 });
 
-gulp.task('copy', ['imagemin', 'sass', 'script'], function() {
-    gulp.src(['./src/**/*.html', ])
-        .pipe(inlineImage({list:['src','data-src']}))
+gulp.task('copy', ['image', 'sass', 'script'], function() {
+    gulp.src(['./src/**/*.html'])
+        .pipe(inlineImage({
+            list: ['src', 'data-src'] // 默认只更改src 和 data-src，如果其他需要构建，可以在此添加属性。
+        }))
         .pipe(useref())
         .pipe(gulp.dest('build'))
-    gulp.src(['./src/temp/**', ])
+    gulp.src(['./src/temp/**'])
         .pipe(gulp.dest('./build/temp'))
 
 })
 
-gulp.task('imagemin', function() {
+gulp.task('image', function() {
     gulp.src('./src/images/**')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{
+                removeViewBox: false
+            }]
+        }))
         .pipe(gulp.dest(build + '/images'))
     gulp.src('./src/css/images/**')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{
+                removeViewBox: false
+            }]
+        }))
         .pipe(gulp.dest(build + '/css/images'))
 
 })
@@ -76,11 +113,17 @@ gulp.task('script', function() {
 
 gulp.task('sass', function() {
     gulp.src('./src/css/**.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass({errLogToConsole: true}))
+        .pipe(env == 'prd' ? gutil.noop() : sourcemaps.init())
+        .pipe(sass({
+            errLogToConsole: true
+        }))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(cssmin())
         .pipe(cssUrlVersion())
-        .pipe(sourcemaps.write('./'))
+        .pipe(env == 'prd' ? gutil.noop() : sourcemaps.write('./'))
         .pipe(gulp.dest(build + '/css'))
 });
 

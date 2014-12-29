@@ -10,9 +10,6 @@ program
     .version(version)
 
 program
-    .usage('[command]')
-
-program
     .command('init')
     .description('初始化项目目录')
     .action(function() {
@@ -24,6 +21,13 @@ program
     .description('初始化版本目录')
     .action(function() {
        lib.create()
+    })
+
+program
+    .command('update')
+    .description('更新配置文件')
+    .action(function() {
+       lib.update()
     })
 
 program

@@ -3,18 +3,17 @@
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="http://www.suning.com/favicon.ico" />
-    <title>{{title}}</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <title>项目名称</title>
+    <meta name="keywords" content="项目关键词" />
+    <meta name="description" content="项目描述" />
     <script>
-        var sn = sn || {
-
-        }
+        var sn = sn || {}
     </script>
     
     <!-- 引入全站公用资源文件 -->
     <!--#include file="/include/resources.shtml"-->
-    <!-- 引入项目css资源文件 -->
+
+    <!-- 引入项目css资源文件,并配置构建地址演示 -->
     <!-- build:css ./assets/css/style.css -->
     <link rel="stylesheet" href="css/style.scss" />
     <!-- endbuild -->
@@ -26,12 +25,15 @@
     <!-- 引入项目模块文件 -->
     <!--#include virtual="_partial.html"-->
 
-    <!-- 请删除此行，并在此编写你的代码！ -->
+    <!-- 需要构建的前景图片，需要设置baseurl，默认./assets/就可以，不需要构建的资源不需要加baseurl -->
     <img src="./images/space.png" data-src="./images/space.png" baseurl="./assets/" height="1" width="1" alt="">
+    
+    <div style="background:url(images/space.png) 0 0 no-repeat" baseurl="./assets/"></div>
+
     <!-- 此处引入公用尾部 -->
     <!--#include file="/include/footer.shtml"-->
-    <!-- 引入项目js资源文件 -->
-    <div style="background:url(images/space.png) 0 0 no-repeat" baseurl="./assets/"></div>
+
+    <!-- 引入项目js资源文件,并配置构建地址演示 -->
     <!-- build:js ./assets/js/js.js -->
     <script type="text/javascript" src="js/js.js"></script>
     <!-- endbuild -->

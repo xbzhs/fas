@@ -17,6 +17,10 @@
     "fed-ssi": "",
     "gulp-css-urlversion": "~1.1.1",
     "gulp-sourcemaps": "~1.2.8",
-    "gulp-inline-imgurl":""
+    "gulp-inline-imgurl":"",
+    "gulp-util":"",
+    "gulp-autoprefixer":"",
+    "gulp-imagemin":"~2.0.0",
+    "fed-mock": "0.0.1"
   }
 }
