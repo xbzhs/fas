@@ -29,9 +29,19 @@
 
 * immed
 如果为真，JSHint要求匿名函数的调用如下：
-```(function(){//}());```
+
+```javascript
+
+  (function(){//}());
+  
+```
 而不是
-```(function(){//bla bla})();```
+
+```javascript
+
+  (function(){//bla bla})();
+  
+```
 
 * laxbreak
 如果为真，JSHint则不会检查换行。Javascript会通过自动补充分号来修正一些错误，因此这个选项可以检查一些潜在的问题。
