@@ -1,6 +1,6 @@
 {
   "name": "fas",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "description": "前端自动化系统",
   "main": "index.js",
   "bin": {
@@ -32,6 +32,6 @@
   "_from": "fas@",
   "devDependencies": {},
   "license": "MIT",
-  "_id": "fas@0.2.22",
+  "_id": "fas@0.2.23",
   "readmeFilename": "README.md"
 }

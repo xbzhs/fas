@@ -17,10 +17,10 @@ var gulp = require('gulp'),
     mock = require('fed-mock'),
     connect = require('gulp-connect');
 
-var build = './build/assets'
 var env = gutil.env.type
+var build = env == 'component' ? './build' : './build/assets'
 
-gulp.task('connect',function() {
+gulp.task('connect', function() {
     connect.server({
         root: '/newCode',
         port: 3000,
@@ -43,12 +43,12 @@ gulp.task('connect',function() {
     });
 });
 
-gulp.task('mock',function(){
+gulp.task('mock', function() {
     connect.server({
         root: '/newCode',
         port: 3001,
         livereload: true,
-        middleware:function(connect,opt){
+        middleware: function(connect, opt) {
             var middlewares = [];
             middlewares.push(mock(
                 '', ''
@@ -105,7 +105,7 @@ gulp.task('image', function() {
 gulp.task('script', function() {
     gulp.src('./src/js/**.js')
         .pipe(jshint({
-            strict: true
+            strict: false
         }))
         .pipe(jshint.reporter(stylish))
         .pipe(gulp.dest(build + '/js'))
@@ -113,7 +113,7 @@ gulp.task('script', function() {
 
 gulp.task('sass', function() {
     gulp.src('./src/css/**.scss')
-        .pipe(env == 'prd' ? gutil.noop() : sourcemaps.init())
+        .pipe((env == 'prd' || env == 'component') ? gutil.noop() : sourcemaps.init())
         .pipe(sass({
             errLogToConsole: true
         }))
@@ -123,7 +123,7 @@ gulp.task('sass', function() {
         }))
         .pipe(cssmin())
         .pipe(cssUrlVersion())
-        .pipe(env == 'prd' ? gutil.noop() : sourcemaps.write('./'))
+        .pipe((env == 'prd' || env == 'component') ? gutil.noop() : sourcemaps.write('./'))
         .pipe(gulp.dest(build + '/css'))
 });
 
