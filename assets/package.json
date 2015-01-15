@@ -5,22 +5,20 @@
   "devDependencies": {
     "gulp": "~3.8.1",
     "gulp-connect": "~2.2.0",
-    "gulp-sass": "~1.1.0",
     "gulp-uglify": "~1.0.1",
-    "gulp-minify-css": "~0.3.11",
     "gulp-clean": "~0.3.1",
     "gulp-jshint": "~1.9.0",
     "jshint-stylish": "~1.0.0",
-    "gulp-rev": "~2.0.1",
     "gulp-useref": "~1.0.2",
-    "gulp-html-replace": "~1.4.1",
     "fed-ssi": "",
-    "gulp-css-urlversion": "~1.1.1",
+    "fas-sass":"~0.0.3",
+    "fas-css-urlversion": "*",
     "gulp-sourcemaps": "~1.2.8",
     "gulp-inline-imgurl":"",
     "gulp-util":"",
     "gulp-autoprefixer":"",
     "gulp-imagemin":"~2.0.0",
-    "fed-mock": "0.0.1"
+    "fed-mock": "0.0.1",
+    "gulp-plumber": "~0.6.6"
   }
 }

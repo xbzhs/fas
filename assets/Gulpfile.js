@@ -1,20 +1,18 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
+    sass = require('fas-sass'),
     uglify = require('gulp-uglify'),
-    cssmin = require('gulp-minify-css'),
     clean = require('gulp-clean'),
     jshint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
-    rev = require('gulp-rev'),
     useref = require('gulp-useref'),
     connectSSI = require('fed-ssi'),
-    sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
-    cssUrlVersion = require('gulp-css-urlversion'),
+    cssUrlVersion = require('fas-css-urlversion'),
     inlineImage = require('gulp-inline-imgurl'),
     autoprefixer = require('gulp-autoprefixer'),
     imagemin = require('gulp-imagemin'),
     mock = require('fed-mock'),
+    plumber = require('gulp-plumber'),
     connect = require('gulp-connect');
 
 var env = gutil.env.type
@@ -67,13 +65,15 @@ gulp.task('clean', function(cb) {
     gulp.src('./build', {
             read: false
         })
+        .pipe(plumber())
         .pipe(clean())
 });
 
-gulp.task('copy', ['image', 'sass', 'script'], function() {
+gulp.task('copy', ['image', 'css', 'script'], function() {
     gulp.src(['./src/**/*.html'])
+        .pipe(plumber())
         .pipe(inlineImage({
-            list: ['src', 'data-src'] // 默认只更改src 和 data-src，如果其他需要构建，可以在此添加属性。
+            list: ['src', 'data-src']
         }))
         .pipe(useref())
         .pipe(gulp.dest('build'))
@@ -82,28 +82,27 @@ gulp.task('copy', ['image', 'sass', 'script'], function() {
 
 })
 
+var imageminOption = {
+    progressive: true,
+    svgoPlugins: [{
+        removeViewBox: false
+    }]
+}
+
 gulp.task('image', function() {
     gulp.src('./src/images/**')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{
-                removeViewBox: false
-            }]
-        }))
+        .pipe(plumber())
+        .pipe(imagemin(imageminOption))
         .pipe(gulp.dest(build + '/images'))
     gulp.src('./src/css/images/**')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{
-                removeViewBox: false
-            }]
-        }))
+        .pipe(plumber())
+        .pipe(imagemin(imageminOption))
         .pipe(gulp.dest(build + '/css/images'))
-
 })
 
 gulp.task('script', function() {
     gulp.src('./src/js/**.js')
+        .pipe(plumber())
         .pipe(jshint({
             strict: false
         }))
@@ -111,19 +110,17 @@ gulp.task('script', function() {
         .pipe(gulp.dest(build + '/js'))
 })
 
-gulp.task('sass', function() {
+gulp.task('css', function() {
     gulp.src('./src/css/**.scss')
-        .pipe((env == 'prd' || env == 'component') ? gutil.noop() : sourcemaps.init())
+        .pipe(plumber())
         .pipe(sass({
-            errLogToConsole: true
+            outputStyle: 'compressed'
         }))
         .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+            browsers: ['last 5 versions'],
             cascade: false
         }))
-        .pipe(cssmin())
         .pipe(cssUrlVersion())
-        .pipe((env == 'prd' || env == 'component') ? gutil.noop() : sourcemaps.write('./'))
         .pipe(gulp.dest(build + '/css'))
 });
 

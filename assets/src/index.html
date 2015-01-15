@@ -17,7 +17,24 @@
     <link rel="stylesheet" href="css/style.scss" />
     <!-- endbuild -->
 </head>
-<body>
+<!--[if lt IE 7 ]><body class="ie ie6"><![endif]-->
+<!--[if IE 7 ]><body class="ie ie7"><![endif]-->
+<!--[if IE 8 ]><body class="ie ie8"><![endif]-->
+<!--[if IE 9 ]><body class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><body><!--<![endif]-->
+    <script>
+    /*
+    * 宽窄屏切换
+    * */
+    var bigscreen = false;
+    if ( screen.width>=1200 ) {
+        bigscreen = true;
+        var bodyTag = document.getElementsByTagName("body")[0],
+        bodyClassName = bodyTag.getAttribute("className") || bodyTag.getAttribute("class");
+        bodyClassName = bodyClassName ? bodyClassName+" " : "";
+        bodyTag.className = bodyClassName+"root1200";
+    }
+    </script>
     <!-- 此处引入公用头部 -->
     <!--#include file="/include/header.shtml"-->
 
